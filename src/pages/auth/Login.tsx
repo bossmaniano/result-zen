@@ -10,7 +10,7 @@ import { toast } from '@/hooks/use-toast';
 import { GraduationCap, Users, BookOpen, UserCheck, Shield } from 'lucide-react';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState<UserRole>('student');
   const { login, isLoading } = useAuth();
@@ -30,7 +30,7 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!email || !password || !role) {
+    if (!usernameOrEmail || !password || !role) {
       toast({
         title: "Validation Error",
         description: "Please fill in all fields",
@@ -39,7 +39,7 @@ const Login = () => {
       return;
     }
 
-    const success = await login(email, password, role);
+    const success = await login(usernameOrEmail, password, role);
     
     if (success) {
       toast({
@@ -93,13 +93,13 @@ const Login = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="usernameOrEmail">Username or Email</Label>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  id="usernameOrEmail"
+                  type="text"
+                  placeholder="Enter your username or email address"
+                  value={usernameOrEmail}
+                  onChange={(e) => setUsernameOrEmail(e.target.value)}
                   required
                 />
               </div>
@@ -130,9 +130,9 @@ const Login = () => {
               {role === 'administrator' && (
                 <div className="text-center">
                   <p className="text-sm text-muted-foreground">
-                    First time setup?{' '}
+                    Administrator accounts are created with secure generated credentials.{' '}
                     <Link to="/signup" className="text-primary hover:underline font-medium">
-                      Create admin account
+                      Create new admin account
                     </Link>
                   </p>
                 </div>

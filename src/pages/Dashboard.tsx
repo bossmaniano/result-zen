@@ -43,6 +43,13 @@ const Dashboard = () => {
 const AdministratorDashboard = () => {
   const quickActions = [
     {
+      title: 'Create User Account',
+      description: 'Generate secure credentials for teachers and students',
+      icon: Users,
+      href: '/create-account',
+      variant: 'highlight' as const
+    },
+    {
       title: 'School Setup',
       description: 'Configure school information and settings',
       icon: School,
@@ -61,7 +68,7 @@ const AdministratorDashboard = () => {
       description: 'Add and manage student information',
       icon: GraduationCap,
       href: '/students',
-      variant: 'highlight' as const
+      variant: 'default' as const
     },
     {
       title: 'Assessment Setup',
