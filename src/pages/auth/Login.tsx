@@ -64,7 +64,7 @@ const Login = () => {
             <div className="mx-auto w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mb-2">
               <GraduationCap className="h-8 w-8 text-primary-foreground" />
             </div>
-            <CardTitle className="text-2xl font-bold">Grade 9 Results System</CardTitle>
+            <CardTitle className="text-2xl font-bold">School Ms education</CardTitle>
             <CardDescription>Sign in to access your account</CardDescription>
           </CardHeader>
           

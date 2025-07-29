@@ -80,7 +80,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
               </div>
               <div>
                 <h1 className="text-lg font-semibold text-primary-foreground">
-                  Grade 9 Results System
+                  School Ms education
                 </h1>
                 <p className="text-xs text-primary-foreground/80 capitalize">
                   {user?.role?.replace('_', ' ')} Dashboard
