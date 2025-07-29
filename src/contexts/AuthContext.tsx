@@ -12,7 +12,7 @@ export interface User {
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string, role: UserRole) => Promise<boolean>;
+  login: (usernameOrEmail: string, password: string, role: UserRole) => Promise<boolean>;
   logout: () => void;
   isLoading: boolean;
 }
@@ -40,22 +40,48 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(false);
   }, []);
 
-  const login = async (email: string, password: string, role: UserRole): Promise<boolean> => {
+  const login = async (usernameOrEmail: string, password: string, role: UserRole): Promise<boolean> => {
     setIsLoading(true);
     
-    // Mock authentication - replace with actual API call
     try {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Mock user data based on role
+      // Check for stored accounts with generated credentials
+      const storedAccounts = JSON.parse(localStorage.getItem('eduSystem_accounts') || '[]');
+      
+      // Try to find account by username or email
+      const account = storedAccounts.find((acc: any) => 
+        (acc.username === usernameOrEmail || acc.email === usernameOrEmail) && 
+        acc.password === password && 
+        acc.role === role
+      );
+      
+      if (account) {
+        // Login with stored account
+        const user: User = {
+          id: account.id,
+          name: account.name,
+          email: account.email || `${account.username}@${account.schoolId || 'system'}.edu`,
+          role: account.role,
+          schoolId: account.schoolId
+        };
+        
+        setUser(user);
+        localStorage.setItem('eduSystem_user', JSON.stringify(user));
+        setIsLoading(false);
+        return true;
+      }
+      
+      // Fallback to mock authentication for demo purposes
+      // This allows existing functionality to work while new accounts use generated credentials
       const mockUser: User = {
         id: `${role}_${Date.now()}`,
         name: role === 'administrator' ? 'System Administrator' : 
               role === 'head_teacher' ? 'Head Teacher' :
               role === 'class_teacher' ? 'Class Teacher' :
               role === 'subject_teacher' ? 'Subject Teacher' : 'Student Name',
-        email,
+        email: usernameOrEmail.includes('@') ? usernameOrEmail : `${usernameOrEmail}@demo.edu`,
         role,
         schoolId: role !== 'administrator' ? 'school_1' : undefined
       };

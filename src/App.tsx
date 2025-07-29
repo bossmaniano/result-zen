@@ -9,6 +9,7 @@ import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Dashboard from "./pages/Dashboard";
 import SchoolSetup from "./pages/SchoolSetup";
+import CreateAccount from "./pages/CreateAccount";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Unauthorized from "./pages/Unauthorized";
@@ -44,6 +45,15 @@ const App = () => (
               element={
                 <ProtectedRoute allowedRoles={['administrator']}>
                   <SchoolSetup />
+                </ProtectedRoute>
+              } 
+            />
+            
+            <Route 
+              path="/create-account" 
+              element={
+                <ProtectedRoute allowedRoles={['administrator']}>
+                  <CreateAccount />
                 </ProtectedRoute>
               } 
             />
